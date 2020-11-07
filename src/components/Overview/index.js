@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import GitRepoPercentBar from "../Bar";
-import styles from "../../GitAccount.module.css";
+import Bar from "../Bar";
 
+
+const Container = styled.div`
+  display: flex;
+
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 95%;
+`;
 
 export default function Overview(props) {
   const [ isLoading, setIsLoading ] = useState(true);
@@ -33,14 +41,14 @@ export default function Overview(props) {
   }
 
   const renderBar = () => {
-    if (!isLoading) return <GitRepoPercentBar username={props.username} repos={resData} />
+    if (!isLoading) return <Bar username={props.username} repos={resData} />
   }
 
   return(
-    <div className={styles.container}>
+    <Container>
       <h3>GitHub Repo Summary</h3>
       {renderOverview()}
       {renderBar()}
-    </div>
+    </Container>
   );
 }
