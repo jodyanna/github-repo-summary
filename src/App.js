@@ -1,9 +1,10 @@
-import './App.css';
+import Overview from "./components/Overview";
+import React from "react";
 
 function App() {
   return (
-    <div className="App">
-
+    <div>
+      <Overview username={"jodyanna"} />
     </div>
   );
 }

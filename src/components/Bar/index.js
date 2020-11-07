@@ -1,30 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BarPart from "../BarPart";
-import colors from "../../colors.json"; // thank you https://github.com/ozh/github-colors
+import colors from "./colors.json"; // thank you https://github.com/ozh/github-colors
 import styles from "../../GitAccount.module.css";
 
 
-export default class Bar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-    };
-  }
+export default function Bar(props) {
+  const [ isLoading, setIsLoading ] = useState(true);
+  const [ resData, setResData ] = useState({});
 
-  componentDidMount() {
-    let promises = this.props.repos.map(repo => this.githubAPIRequest(repo));
-    Promise.all(promises).then(data => this.calcGitRepoLangUsage(data))
-      .then(data => this.determineLangUsagePercents(data))
-      .then(data => this.setState({isLoading: false, gitData: this.createStateObject(data)}))
+  useEffect(() => {
+    let promises = props.repos.map(repo => githubAPIRequest(repo));
+    Promise.all(promises).then(data => calcGitRepoLangUsage(data))
+      .then(data => determineLangUsagePercents(data))
+      .then(data => setResData(createStateObject(data)))
+      .then(() => setIsLoading(false))
       .catch(err => console.log(err))
-  }
+  }, []);
 
-  githubAPIRequest(repo) {
-    return ajaxRequest(`https://api.github.com/repos/${this.props.username}/${repo}/languages`)
-  }
+  const githubAPIRequest = repo => ajaxRequest(`https://api.github.com/repos/${props.username}/${repo}/languages`)
 
-  calcGitRepoLangUsage(data) {
+  const calcGitRepoLangUsage = data => {
     // param: array of objects
     // return: obj
     let temp = {};
@@ -37,9 +32,9 @@ export default class Bar extends React.Component {
     return temp
   }
 
-  determineLangUsagePercents(data) {
+  const determineLangUsagePercents = data => {
     let temp = {};
-    const langScoreTotal = this.calcGitLangScore(data);
+    const langScoreTotal = calcGitLangScore(data);
     for (const prop in data) {
       const ratio = data[prop] / langScoreTotal;
       const width = (Math.floor(ratio.toFixed(2) * 100));
@@ -48,11 +43,9 @@ export default class Bar extends React.Component {
     return temp
   }
 
-  calcGitLangScore(data) {
-    return Object.values(data).reduce((a, b) => a + b, 0)
-  }
+  const calcGitLangScore = data => Object.values(data).reduce((a, b) => a + b, 0)
 
-  createStateObject(data) {
+  const createStateObject = (data) => {
     const sorted = Object.entries(data).sort((a, b) => b[1] - a[1]);
     let temp = {};
     for (let i = 0; i < sorted.length; i++) {
@@ -65,25 +58,24 @@ export default class Bar extends React.Component {
     return temp
   }
 
-  render() {
-    const createBar = () => {
-      if (!this.state.isLoading) {
-        return (
-          <div className={styles.barContainer}>
-            {Object.values(this.state.gitData).map(obj => <BarPart key={obj.displayName}
-                                                                   label={obj.displayName}
-                                                                   width={obj.width}
-                                                                   backgroundColor={obj.backgroundColor}/>)}
-          </div>
-        );
-      }
+  const createBar = () => {
+    if (!isLoading) {
+      return (
+        <div className={styles.barContainer}>
+          {Object.values(resData).map(obj => <BarPart key={obj.displayName}
+                                                                 label={obj.displayName}
+                                                                 width={obj.width}
+                                                                 backgroundColor={obj.backgroundColor}/>)}
+        </div>
+      );
     }
-    return (
-      <div className={styles.container}>
-        {createBar()}
-      </div>
-    );
   }
+
+  return (
+    <div className={styles.container}>
+      {createBar()}
+    </div>
+  );
 }
 
 const ajaxRequest = (url) => {
