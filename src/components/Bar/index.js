@@ -1,28 +1,7 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import { Container, BarContainer } from "./style";
 import BarPart from "../BarPart";
 import colors from "./colors.json"; // thank you https://github.com/ozh/github-colors
-
-
-const Container = styled.div`
-  display: flex;
-
-  flex-direction: column;
-  align-items: flex-start;
-
-  width: 100%;
-`;
-
-const BarContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  width: 95%;
-  height: 25px;
-
-  margin: 0;
-  padding: 1em 1em 1em 0;
-`;
 
 export default function Bar(props) {
   const [ isLoading, setIsLoading ] = useState(true);

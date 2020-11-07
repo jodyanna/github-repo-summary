@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Bar from "../Bar";
 
-
 const Container = styled.div`
   display: flex;
 
