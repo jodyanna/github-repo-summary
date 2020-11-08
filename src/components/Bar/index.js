@@ -62,9 +62,9 @@ export default function Bar(props) {
       return (
         <BarContainer>
           {Object.values(resData).map(obj => <BarPart key={obj.displayName}
-                                                                 label={obj.displayName}
-                                                                 width={obj.width}
-                                                                 backgroundColor={obj.backgroundColor}/>)}
+                                                      label={obj.displayName}
+                                                      width={obj.width}
+                                                      backgroundColor={obj.backgroundColor}/>)}
         </BarContainer>
       );
     }

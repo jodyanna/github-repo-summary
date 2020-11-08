@@ -11,7 +11,7 @@ const Container = styled.div`
   width: 95%;
 `;
 
-export default function Overview(props) {
+export default function GitHubSummary(props) {
   const [ isLoading, setIsLoading ] = useState(true);
   const [ resData, setResData ] = useState({});
 

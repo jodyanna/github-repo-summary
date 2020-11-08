@@ -1,9 +1,9 @@
 import React from "react";
-import Overview from "./components/Overview";
+import GitHubSummary from "./components/GitHubSummary";
 
 function Preview() {
   return (
-    <Overview username={"jodyanna"} />
+    <GitHubSummary username={"jodyanna"} />
   );
 }
 
