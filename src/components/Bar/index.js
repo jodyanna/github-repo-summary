@@ -84,7 +84,7 @@ const ajaxRequest = (url) => {
       if (this.readyState === 4 && this.status === 200) resolve(JSON.parse(this.responseText))
     };
     xhttp.open("GET", url, true);
-    xhttp.setRequestHeader("authorization", process.env.REACT_APP_GITHUB_API_TOKEN);
+    //xhttp.setRequestHeader("authorization", process.env.REACT_APP_GITHUB_API_TOKEN);
     xhttp.send();
     setTimeout(() => {}, 1000)
   })

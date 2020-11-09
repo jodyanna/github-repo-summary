@@ -7,10 +7,6 @@ Currently, displayed statistics include:
 
 ![Alt text](./src/img/preview.png?raw=true "Preview")
 
-# Installation
-Please wait for npm package.
-
-Until then, component code can be copied from the src/components directory in this repo.
 
 # How To Use
 The GitHubSummary component serves as the main container for all statistics gathered from GitHub's API.
@@ -34,7 +30,7 @@ Requests are made during component life cycle using React's useEffect Hook and c
 First, using the account name provided by the 'username' props, all user public repo names are requested and saved as an array using React's useState Hook.
 The total number of repos is determined by using the 'length' method of the repo names array.
 
-Then, an array of promises containing repo language usage are returned by mapping the array of repo names with a promisified XMLHttpRequest function.
+Then, an array of promises containing repo language usage is returned by mapping the array of repo names with a promisified XMLHttpRequest function.
 
 ### Determining language usage
 GitHub's API returns an object consisting of programming language name keys and int values to determine how much of each language is used in a project.
@@ -63,6 +59,8 @@ Finally, a state object is created that will contain all of the necessary styles
 All that is left is to map the styles to the BarPart component to render the bar.
 
 And that's all there is to it! Easy-peasy!
+
+
 
 # Acknowledgements 
 Thank you, GitHub user 'ozh', for the JSON file containing all of the colors GitHub uses for each programming language.

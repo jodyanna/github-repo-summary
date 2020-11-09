@@ -18,9 +18,6 @@ export default function GitHubSummary(props) {
   useEffect(() => {
     fetch(`https://api.github.com/users/${props.username}/repos`, {
       method: "GET",
-      headers: {
-        "authorization": process.env.REACT_APP_GITHUB_API_TOKEN
-      }
     }).then(res => res.json())
       .then(data => data.map(obj => obj.name))
       .then(data => setResData(data))
